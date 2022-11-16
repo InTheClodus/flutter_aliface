@@ -1,0 +1,71 @@
+group 'com.ljx.flutter_aliface'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.6.10'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        flatDir {
+            dirs project(':flutter_aliface').file("libs")
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api(name: 'aliyunface', ext: "aar")
+    api(name: 'AliyunFaceGuard', ext: "aar")
+    api(name: 'aliyunfacelanguage', ext: "aar")
+    api(name: 'aliyunocr', ext: "aar")
+    api(name: 'aliyunphotinus', ext: "aar")
+    api(name: 'aliyunwishverify', ext: "aar")
+    api(name: 'APSecuritySDKDeepSec', ext: "aar")
+    // 阿里云实人认证依赖三方库
+    implementation 'com.squareup.okhttp3:okhttp:4.3.1'
+    implementation 'com.squareup.okio:okio:2.4.1'
+    implementation 'com.alibaba:fastjson:1.2.62'
+}
